@@ -14,9 +14,13 @@
     "@mui/icons-material": "^7.3.5",
     "@mui/lab": "^7.0.1-beta.19",
     "@mui/material": "^7.3.5",
+    "nanoid": "^5.1.6",
     "next": "16.0.1",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "stylis": "^4.3.6",
+    "stylis-plugin-rtl": "^2.1.1",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "eslint": "^9",
