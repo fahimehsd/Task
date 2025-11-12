@@ -12,12 +12,12 @@ export const useTreeStore = create((set, get) => ({
       ]
     }
   ],
-  clipboard: null, // برای copy یا cut
+  clipboard: null,
 
-  addNode: (parentId, label) => {
+  addNode: (ID, label) => {
     const add = (nodes) =>
       nodes.map((node) => {
-        if (node.id === parentId) {
+        if (node.id === ID) {
           const newNode = {
             id: nanoid(),
             label,
@@ -64,7 +64,7 @@ export const useTreeStore = create((set, get) => ({
     set({ clipboard: { data: node, type: "cut" } });
   },
 
-  pasteNode: (parentId) => {
+  pasteNode: (ID) => {
     const { clipboard } = get();
     if (!clipboard) return;
     const newData =
@@ -72,7 +72,7 @@ export const useTreeStore = create((set, get) => ({
         ? { ...clipboard.data, id: nanoid() }
         : clipboard.data;
 
-    get().addNode(parentId, newData.label);
+    get().addNode(ID, newData.label);
     if (clipboard.type === "cut") set({ clipboard: null });
   }
 }));

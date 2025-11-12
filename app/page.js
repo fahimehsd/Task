@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <Box sx={{ p: 4 }}>
       <Typography variant="h5" sx={{ mb: 2 }}>
-        ساختار درختی
+        {/* تسک - فهیمه صادقی */}
       </Typography>
 
       {tree.map((node) => (
