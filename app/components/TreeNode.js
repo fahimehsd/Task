@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { Box, Typography, Collapse } from "@mui/material";
-import { ExpandMore, ChevronLeft } from "@mui/icons-material";
+import { ExpandMore, ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { useTreeStore } from "../store/treeStore";
 import ContextMenu from "./ContextMenu";
 
@@ -11,7 +11,7 @@ const levelColors = [
   "#E8F5E9",
   "#FFF3E0",
   "#F3E5F5",
-  "#FBE9E7"
+  "#FBE9E7",
 ];
 
 export default function TreeNode({ node, level = 0 }) {
@@ -53,12 +53,12 @@ export default function TreeNode({ node, level = 0 }) {
           position: "relative",
           zIndex: 1,
           width: "200px",
-          height: "fit-content"
+          height: "fit-content",
         }}
       >
         {node.children.length > 0 &&
           (open ? (
-            <ExpandMore fontSize="small" />
+            <ChevronRight fontSize="small" />
           ) : (
             <ChevronLeft fontSize="small" />
           ))}
@@ -76,7 +76,10 @@ export default function TreeNode({ node, level = 0 }) {
           const isLast = index === node.children.length - 1;
 
           return (
-            <Box key={child.id} sx={{ position: "relative", pl: 1, pb: 2 }}>
+            <Box
+              key={child.id}
+              sx={{ position: "relative", pl: 1, pb: 2, ml: 2 }}
+            >
               {/* خط عمودی */}
               <Box
                 sx={{
@@ -84,9 +87,9 @@ export default function TreeNode({ node, level = 0 }) {
                   top: isOnly ? midHeight : isFirst ? midHeight : 0,
                   left: 12,
                   width: 2,
-                  height: isOnly ? 0 : isLast ? "38%" : "100%",
+                  height: isOnly ? 0 : isLast ? midHeight : "100%",
                   bgcolor: "grey.400",
-                  zIndex: 0
+                  zIndex: 0,
                 }}
               />
               {/* خط افقی - دقیقا وسط ارتفاع کارت پدر */}
@@ -99,9 +102,23 @@ export default function TreeNode({ node, level = 0 }) {
                   height: 2,
                   bgcolor: "grey.400",
                   zIndex: 1,
-                  transform: "translateY(-50%)"
+                  transform: "translateY(-50%)",
                 }}
               />
+              {isFirst && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: midHeight,
+                    left: -4,
+                    width: 16,
+                    height: 2,
+                    bgcolor: "grey.400",
+                    zIndex: 1,
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
 
               <TreeNode node={child} level={level + 1} />
             </Box>
