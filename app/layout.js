@@ -1,5 +1,4 @@
 import { Vazirmatn } from "next/font/google";
-import "./globals.css";
 import ClientLayout from "./clientLayout";
 
 export const vazir = Vazirmatn({
