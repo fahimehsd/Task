@@ -1,7 +1,12 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { Box, Typography, Collapse } from "@mui/material";
-import { ExpandMore, ChevronLeft, ChevronRight } from "@mui/icons-material";
+import { Box, Typography, Collapse, IconButton } from "@mui/material";
+import {
+  ExpandMore,
+  ChevronLeft,
+  ChevronRight,
+  Add,
+} from "@mui/icons-material";
 import { useTreeStore } from "../store/treeStore";
 import ContextMenu from "./ContextMenu";
 
@@ -19,7 +24,7 @@ export default function TreeNode({ node, level = 0 }) {
   const [context, setContext] = useState(null);
   const { deleteNode } = useTreeStore();
   const nodeRef = useRef(null);
-  const [midHeight, setMidHeight] = useState(20); // مقدار پیش‌فرض
+  const [midHeight, setMidHeight] = useState(20);
 
   useEffect(() => {
     if (nodeRef.current) {
@@ -34,8 +39,14 @@ export default function TreeNode({ node, level = 0 }) {
 
   const handleClose = () => setContext(null);
 
+  const handleAddChild = () => {
+    console.log(`افزودن زیرمجموعه جدید به ${node.label}`);
+    // اینجا می‌تونی تابع addNode(node.id) رو از استورت صدا بزنی
+  };
+
   return (
     <Box sx={{ position: "relative", pl: 4, display: "flex" }}>
+      {/* کارت اصلی */}
       <Box
         ref={nodeRef}
         onClick={() => setOpen(!open)}
@@ -48,7 +59,6 @@ export default function TreeNode({ node, level = 0 }) {
           borderRadius: 2,
           bgcolor: levelColors[level % levelColors.length],
           boxShadow: 2,
-          "&:hover": { bgcolor: "grey.100" },
           transition: "0.3s",
           position: "relative",
           zIndex: 1,
@@ -69,6 +79,7 @@ export default function TreeNode({ node, level = 0 }) {
 
       <ContextMenu node={node} context={context} onClose={handleClose} />
 
+      {/* زیرمجموعه‌ها */}
       <Collapse orientation="horizontal" in={open}>
         {node.children.map((child, index) => {
           const isFirst = index === 0;
@@ -92,7 +103,7 @@ export default function TreeNode({ node, level = 0 }) {
                   zIndex: 0,
                 }}
               />
-              {/* خط افقی - دقیقا وسط ارتفاع کارت پدر */}
+              {/* خط افقی */}
               <Box
                 sx={{
                   position: "absolute",
@@ -105,20 +116,6 @@ export default function TreeNode({ node, level = 0 }) {
                   transform: "translateY(-50%)",
                 }}
               />
-              {isFirst && (
-                <Box
-                  sx={{
-                    position: "absolute",
-                    top: midHeight,
-                    left: -4,
-                    width: 16,
-                    height: 2,
-                    bgcolor: "grey.400",
-                    zIndex: 1,
-                    transform: "translateY(-50%)",
-                  }}
-                />
-              )}
 
               <TreeNode node={child} level={level + 1} />
             </Box>
