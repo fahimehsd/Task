@@ -10,7 +10,7 @@ const levelColors = [
   "#E8F5E9",
   "#FFF3E0",
   "#F3E5F5",
-  "#FBE9E7"
+  "#FBE9E7",
 ];
 
 export default function TreeNode({ node, level = 0 }) {
@@ -44,7 +44,7 @@ export default function TreeNode({ node, level = 0 }) {
         position: "relative",
         pl: 4,
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
       }}
     >
       <Box
@@ -63,7 +63,7 @@ export default function TreeNode({ node, level = 0 }) {
           position: "relative",
           zIndex: 1,
           width: "200px",
-          height: "fit-content"
+          height: "fit-content",
         }}
       >
         {node.children.length > 0 &&
@@ -83,7 +83,7 @@ export default function TreeNode({ node, level = 0 }) {
         {node.children.map((child, index) => {
           const isOnly = node.children.length === 1;
           const isLast = index === node.children.length - 1;
-          const verticalGap = 24; // فاصله دلخواه بین والد و فرزند
+          const verticalGap = 24;
 
           return (
             <Box
@@ -92,7 +92,7 @@ export default function TreeNode({ node, level = 0 }) {
                 position: "relative",
                 pl: 1,
                 ml: 2,
-                mt: `${verticalGap}px`
+                mt: `${verticalGap}px`,
               }}
             >
               <Box
@@ -108,7 +108,7 @@ export default function TreeNode({ node, level = 0 }) {
                     : `calc(100% + ${verticalGap}px)`,
                   bgcolor: "grey.400",
                   zIndex: 0,
-                  transition: "height 0.3s ease"
+                  transition: "height 0.3s ease",
                 }}
               />
 
@@ -121,7 +121,7 @@ export default function TreeNode({ node, level = 0 }) {
                   height: 2,
                   bgcolor: "grey.400",
                   zIndex: 1,
-                  transform: "translateY(-50%)"
+                  transform: "translateY(-50%)",
                 }}
               />
 
